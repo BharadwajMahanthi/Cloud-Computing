@@ -1,0 +1,108 @@
+{% extends "_base.htm" %}
+
+{% block title %}
+	chart
+{% endblock %}
+
+{% block pageblock %}
+
+	<div id="up" style="text-align: right;">
+		<h3><a href="index.htm">back to main page</a><br/></h3>
+	</div>
+		<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	  
+
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+	  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+	  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+	</head>
+	<body>
+		<link rel="stylesheet" type="text/css" href="/static/def.css" /> 
+	  <div id="chart_div" style="width: 900px; height: 500px"></div>
+	  
+	<script type="text/javascript">
+
+		google.charts.load('current', {'packages':['corechart']});
+		google.charts.setOnLoadCallback(drawChart);
+		col=['Date','Value 95','Value 99']
+		var l_95={{list95}};
+		var l_99={{list99}};
+		var d='{{dates}}';
+		var dateclean=d.replace('[','').replace(']','').split(',').map(x => x.trim());
+		var V_f=[];
+		var cal=[]
+		V_f.push(col)
+		for (let i=0; i<l_95.length;i++){
+			V_f.push([dateclean[i].replace("&#39;","").replace("&#39;",""),l_95[i],l_99[i]]);
+			cal.push([dateclean[i].replace("&#39;","").replace("&#39;",""),l_95[i],l_99[i]]);
+		}
+		var myJsonString = JSON.stringify(V_f)
+
+		function drawChart() {
+		  var dc = google.visualization.arrayToDataTable(V_f);
+  
+		  var options = {
+			title: 'Chart',
+			width: 600,
+                  height: 400,
+                  bar: {groupWidth: "95%"},
+                  legend: { position: "none" },
+		  };
+  
+		  var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+  
+		  chart.draw(dc, options);
+		}
+
+ </script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+	google.charts.load('current', {'packages':['table']});
+      google.charts.setOnLoadCallback(drawTable);
+       col=['Date','Value 95','Value 99']
+		var l_95={{list95}};
+		var l_99={{list99}};
+		var d='{{dates}}';
+		var dateclean=d.replace('[','').replace(']','').split(',').map(x => x.trim());
+		var V_f=[];
+		var cal=[]
+		V_f.push(col)
+		for (let i=0; i<l_95.length;i++){
+			V_f.push([dateclean[i].replace("&#39;","").replace("&#39;",""),l_95[i],l_99[i]]);
+			cal.push([dateclean[i].replace("&#39;","").replace("&#39;",""),l_95[i],l_99[i]]);
+		}
+		var myJsonString = JSON.stringify(V_f)
+
+
+      function drawTable() {
+      var data = google.visualization.arrayToDataTable(V_f);
+        var table = new google.visualization.Table(document.getElementById('table_div'));
+
+        table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+    }
+</script>
+    <div id="table_div"></div>
+	 
+
+
+	
+<div class="container">
+	<h1><headers>Audit</headers></h1>
+	<h4>Minhistory:{{mn}}</h4>
+	<h4>Shots:{{sh}}</h4>
+	<h4>Risk value of 95:{{vr95}}</h4>
+	<h4>Risk value of 99:{{vr99}}</h4><br><br>
+	<form action ="http://127.0.0.1:8080/chart">
+	</form>
+  </div>
+	</body>
+{% endblock %}
