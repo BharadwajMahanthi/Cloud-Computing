@@ -5,7 +5,7 @@ import random
 import json
 import yfinance as yf
 import os
-import logging as logging
+import logging
 import pandas as pd
 from datetime import date, timedelta
 from pandas_datareader import data as pdr
