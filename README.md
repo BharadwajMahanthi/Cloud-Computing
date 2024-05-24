@@ -54,7 +54,7 @@ For AWS EC2, you can set up a virtual machine, install necessary dependencies, a
 
 4. **Clone your project and set up the environment**:
    ```bash
-   git clone https://github.com/your-repo/your-project.git
+   git clone https://github.com/BharadwajMahanthi/Cloud-Computing.git
    cd your-project
    virtualenv venv
    source venv/bin/activate
