@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from flask import Flask, render_template, request, jsonify
 import math
-import logging as logging
+import logging
 import random
 import json
 import yfinance as yf
